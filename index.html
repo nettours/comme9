@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comme9 – Nettoyage Professionnel à Tours</title>
+  <meta name="description" content="Comme9, entreprise de nettoyage professionnel à Tours. Bureaux, Airbnb, après travaux, vitres, locaux commerciaux. Devis gratuit." />
+  <meta name="keywords" content="nettoyage professionnel Tours, entreprise nettoyage Tours, ménage Airbnb Tours, nettoyage bureaux Tours, nettoyage après travaux" />
+  <meta property="og:title" content="Comme9 – Nettoyage Professionnel à Tours" />
+  <meta property="og:description" content="Propreté impeccable, service fiable. Devis gratuit sous 24h." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #ffffff;
+      --offwhite: #f5f9f8;
+      --blue:    #1a4f8a;
+      --blue-light: #2d72cc;
+      --blue-pale: #e8f1fb;
+      --green:   #1fa884;
+      --green-light: #27c49d;
+      --green-pale: #e3f7f3;
+      --dark:    #0d1f2d;
+      --mid:     #4a6274;
+      --text:    #243340;
+      --border:  #d9eae6;
+      --shadow:  rgba(26,79,138,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .logo-text { font-family: 'Syne', sans-serif; }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px var(--shadow); }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .logo-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .logo-text {
+      font-size: 1.4rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--mid); font-size: .92rem; font-weight: 500;
+      transition: color .2s; position: relative; padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--green); transform: scaleX(0); transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue), var(--green-light));
+      color: white!important; padding: 9px 20px; border-radius: 8px;
+      font-weight: 600!important; font-size: .88rem!important;
+      transition: opacity .2s, transform .2s!important;
+    }
+    .nav-cta:hover { opacity: .9; transform: translateY(-1px)!important; }
+    .nav-cta::after { display: none!important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--blue); border-radius: 2px; transition: all .3s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 70px; left: 0; right: 0;
+      background: white; border-bottom: 1px solid var(--border);
+      flex-direction: column; gap: 0; z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 16px 5%; font-weight: 500; text-decoration: none;
+      color: var(--text); border-bottom: 1px solid var(--border);
+      font-size: .95rem;
+    }
+
+    /* ─── HERO ─── */
+    #accueil {
+      min-height: 100vh;
+      padding-top: 70px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 0;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
+    background: 
+    linear-gradient(160deg, rgba(245,249,248,0.92) 0%, rgba(232,241,251,0.85) 100%),
+    url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400') 
+    center/cover no-repeat;
+}
+    .hero-blob {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: .3;
+    }
+    .hero-blob-1 {
+      width: 500px; height: 500px; top: -100px; right: -100px;
+      background: radial-gradient(circle, var(--blue-light), transparent 70%);
+    }
+    .hero-blob-2 {
+      width: 350px; height: 350px; bottom: -50px; left: 30%;
+      background: radial-gradient(circle, var(--green-light), transparent 70%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 1; padding: 80px 5% 80px 8%;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-pale); color: var(--green);
+      padding: 7px 16px; border-radius: 100px;
+      font-size: .82rem; font-weight: 600; margin-bottom: 28px;
+      border: 1px solid #b8eddf;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px; background: var(--green);
+      border-radius: 50%; animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .6; transform: scale(1.3); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 800; line-height: 1.15;
+      color: var(--dark); margin-bottom: 18px;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-slogan {
+      font-size: 1.18rem; color: var(--mid); margin-bottom: 16px; font-weight: 400;
+      font-style: italic;
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--mid); line-height: 1.75;
+      margin-bottom: 36px; max-width: 480px;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--green-light));
+      color: white; border: none; padding: 15px 32px; border-radius: 10px;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 8px 28px rgba(26,79,138,.28);
+      transition: transform .25s, box-shadow .25s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(26,79,138,.36); }
+
+    .btn-secondary {
+      background: white; color: var(--blue); border: 2px solid var(--blue);
+      padding: 13px 28px; border-radius: 10px;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .2s, color .2s, transform .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--blue); color: white; transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 32px;
+    }
+    .stat { text-align: left; }
+    .stat-num {
+      font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: .8rem; color: var(--mid); font-weight: 500; }
+
+    .hero-visual {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 8% 60px 0;
+    }
+    .hero-card-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; max-width: 460px; width: 100%;
+    }
+    .mini-card {
+      background: white; border-radius: 16px;
+      padding: 22px 18px;
+      box-shadow: 0 4px 24px var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform .3s, box-shadow .3s;
+      animation: floatCard linear infinite;
+    }
+    .mini-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px var(--shadow); }
+    .mini-card:nth-child(1) { animation-duration: 6s; }
+    .mini-card:nth-child(2) { animation-duration: 7.5s; animation-delay: -2s; }
+    .mini-card:nth-child(3) { animation-duration: 5.5s; animation-delay: -1s; }
+    .mini-card:nth-child(4) { animation-duration: 8s; animation-delay: -3s; }
+    @keyframes floatCard {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+    .mini-card-icon {
+      font-size: 2rem; margin-bottom: 10px;
+    }
+    .mini-card h4 {
+      font-size: .88rem; font-weight: 700; color: var(--dark); margin-bottom: 4px;
+    }
+    .mini-card p { font-size: .77rem; color: var(--mid); line-height: 1.5; }
+    .mini-card.featured {
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      color: white; grid-column: span 2;
+    }
+    .mini-card.featured h4, .mini-card.featured p { color: white; }
+    .mini-card.featured p { opacity: .85; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 96px 5%; }
+    .section-tag {
+      display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 800;
+      color: var(--dark); margin-bottom: 16px; line-height: 1.2;
+    }
+    .section-sub {
+      font-size: 1.02rem; color: var(--mid); line-height: 1.75;
+      max-width: 560px; margin-bottom: 56px;
+    }
+    .centered { text-align: center; }
+    .centered .section-sub { margin: 0 auto 56px; }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--offwhite); }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .service-card {
+      background: white; border-radius: 18px;
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px var(--shadow); border-color: #b8eddf; }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 58px; height: 58px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; margin-bottom: 18px;
+    }
+    .icon-blue { background: var(--blue-pale); }
+    .icon-green { background: var(--green-pale); }
+
+    .service-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+    .service-card ul { list-style: none; margin-bottom: 16px; }
+    .service-card ul li {
+      font-size: .9rem; color: var(--mid); padding: 4px 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .service-card ul li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: .85rem; }
+    .service-badge {
+      display: inline-block; font-size: .78rem; font-weight: 600;
+      background: var(--green-pale); color: var(--green);
+      padding: 5px 12px; border-radius: 100px;
+    }
+
+    /* ─── WHY US ─── */
+    #pourquoi { background: var(--white); }
+
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .why-text .section-sub { margin-bottom: 36px; }
+
+    .why-items { display: flex; flex-direction: column; gap: 20px; }
+    .why-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 18px 20px; border-radius: 12px; border: 1px solid var(--border);
+      transition: border-color .25s, background .25s;
+    }
+    .why-item:hover { background: var(--offwhite); border-color: #b8eddf; }
+    .why-item-icon {
+      min-width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-pale), var(--green-pale));
+      display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+    }
+    .why-item h4 { font-size: .97rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .why-item p { font-size: .87rem; color: var(--mid); line-height: 1.6; }
+
+    .why-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .why-num-card {
+      background: var(--offwhite); border-radius: 16px;
+      padding: 28px 20px; text-align: center;
+      border: 1px solid var(--border);
+    }
+    .why-num-card.accent {
+      background: linear-gradient(135deg, var(--blue), var(--green-light));
+      color: white; border: none;
+    }
+    .why-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; }
+    .why-num-card:not(.accent) .why-num {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .why-num-card.accent .why-num { color: white; }
+    .why-num-label { font-size: .82rem; color: var(--mid); margin-top: 4px; font-weight: 500; }
+    .why-num-card.accent .why-num-label { color: rgba(255,255,255,.8); }
+    .why-num-card.tall { grid-row: span 2; display: flex; flex-direction: column; justify-content: center; }
+
+    /* ─── TESTIMONIALS ─── */
+    #temoignages { background: linear-gradient(160deg, var(--dark) 0%, #0b2d45 100%); color: white; }
+    #temoignages .section-title { color: white; }
+    #temoignages .section-sub { color: rgba(255,255,255,.6); }
+    #temoignages .section-tag { color: var(--green-light); }
+
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+
+    .testi-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px; padding: 30px 26px;
+      transition: background .3s, transform .3s;
+    }
+    .testi-card:hover { background: rgba(255,255,255,.1); transform: translateY(-4px); }
+    .stars { color: #fbbf24; font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .testi-text { font-size: .95rem; line-height: 1.75; color: rgba(255,255,255,.85); margin-bottom: 20px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-light), var(--green));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 700; color: white; font-size: 1rem;
+    }
+    .testi-name { font-weight: 600; color: white; font-size: .92rem; }
+    .testi-role { font-size: .78rem; color: rgba(255,255,255,.5); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--offwhite); }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+
+    .contact-info { }
+    .contact-info .section-sub { margin-bottom: 36px; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item {
+      display: flex; gap: 14px; align-items: center;
+      padding: 16px; background: white; border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .contact-item-icon {
+      min-width: 42px; height: 42px; border-radius: 10px;
+      background: var(--green-pale); display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem;
+    }
+    .contact-item h5 { font-size: .82rem; color: var(--mid); margin-bottom: 2px; font-weight: 500; }
+    .contact-item p { font-size: .95rem; font-weight: 600; color: var(--dark); }
+
+    .contact-form-box {
+      background: white; border-radius: 20px; padding: 40px 36px;
+      box-shadow: 0 8px 40px var(--shadow); border: 1px solid var(--border);
+    }
+    .form-title { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .form-sub { font-size: .88rem; color: var(--mid); margin-bottom: 28px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: .83rem; font-weight: 600;
+      color: var(--dark); margin-bottom: 6px;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: .93rem; font-family: 'DM Sans', sans-serif;
+      color: var(--text); background: var(--offwhite);
+      outline: none; transition: border-color .2s, background .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--green); background: white;
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--blue), var(--green-light));
+      color: white; border: none; padding: 15px;
+      border-radius: 10px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: opacity .2s, transform .2s;
+    }
+    .form-submit:hover { opacity: .9; transform: translateY(-2px); }
+    .form-submit:disabled { opacity: .6; cursor: default; transform: none; }
+
+    .form-msg {
+      margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+      font-size: .9rem; font-weight: 500; display: none;
+    }
+    .form-msg.success { background: var(--green-pale); color: var(--green); display: block; }
+    .form-msg.error { background: #fde8e8; color: #c0392b; display: block; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.7);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-logo { margin-bottom: 14px; }
+    .footer-desc { font-size: .88rem; line-height: 1.7; margin-bottom: 20px; }
+
+    .footer-heading {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      color: white; font-size: .95rem; margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a {
+      text-decoration: none; color: rgba(255,255,255,.6); font-size: .88rem;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--green-light); }
+
+    .footer-contact-item { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; font-size: .88rem; }
+    .footer-contact-item span:first-child { font-size: 1rem; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .82rem; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom a { color: var(--green-light); text-decoration: none; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(32px); transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── BACK TO TOP ─── */
+    .back-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: white; border: none; cursor: pointer;
+      font-size: 1.2rem; box-shadow: 0 4px 18px rgba(26,79,138,.35);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .3s, transform .3s;
+      z-index: 99;
+    }
+    .back-top.show { opacity: 1; }
+    .back-top:hover { transform: translateY(-3px); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      #accueil { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-content { padding: 60px 5%; text-align: center; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .why-grid, .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .contact-form-box { padding: 28px 20px; }
+      section { padding: 72px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <a href="#accueil" class="logo">
+    <div class="logo-icon">🧹</div>
+    <span class="logo-text">Comme9</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pourquoi">Pourquoi nous</a></li>
+    <li><a href="#temoignages">Avis</a></li>
+    <li><a href="#contact" class="nav-cta">Devis gratuit</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#accueil" onclick="closeMobile()">Accueil</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#pourquoi" onclick="closeMobile()">Pourquoi nous</a>
+  <a href="#temoignages" onclick="closeMobile()">Avis clients</a>
+  <a href="#contact" onclick="closeMobile()" style="color:var(--green);font-weight:700;">→ Devis gratuit</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Tours, France — Disponible maintenant</div>
+    <h1 class="hero-title">
+      Entreprise de nettoyage<br/>
+      <span>professionnelle à Tours</span>
+    </h1>
+    <p class="hero-slogan">Propreté impeccable, service fiable.</p>
+    <p class="hero-desc">
+      Comme9 accompagne les entreprises, les locations courte durée (Airbnb) et les particuliers avec des prestations rapides, efficaces et soignées. Notre priorité : votre satisfaction et un résultat impeccable.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">👉 Demander un devis gratuit</a>
+      <a href="#services" class="btn-secondary">Voir nos services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5⭐</div>
+        <div class="stat-label">Note moyenne</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24h</div>
+        <div class="stat-label">Réponse devis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-grid">
+      <div class="mini-card">
+        <div class="mini-card-icon">🏢</div>
+        <h4>Bureaux</h4>
+        <p>Entretien régulier de vos locaux professionnels</p>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-icon">🏠</div>
+        <h4>Airbnb</h4>
+        <p>Remise en état rapide entre chaque séjour</p>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-icon">🪟</div>
+        <h4>Vitres</h4>
+        <p>Résultat sans traces, intérieur & extérieur</p>
+      </div>
+      <div class="mini-card featured">
+        <div class="mini-card-icon">✨</div>
+        <h4>Nettoyage après travaux</h4>
+        <p>Prêt à l'utilisation dès le lendemain</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="centered reveal">
+    <span class="section-tag">Nos Prestations</span>
+    <h2 class="section-title">Des services adaptés<br/>à chaque besoin</h2>
+    <p class="section-sub">Que vous soyez une entreprise, un hôte Airbnb ou un particulier, nous avons la solution de nettoyage parfaite pour vous.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon icon-blue">🏢</div>
+      <h3>Nettoyage de bureaux</h3>
+      <ul>
+        <li>Sols, vitres, sanitaires</li>
+        <li>Poubelles, désinfection</li>
+        <li>Entretien quotidien ou hebdomadaire</li>
+        <li>Espaces de travail soignés</li>
+      </ul>
+      <span class="service-badge">💼 Idéal pour entreprises & artisans</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-green">🏠</div>
+      <h3>Locations courte durée (Airbnb)</h3>
+      <ul>
+        <li>Ménage complet du logement</li>
+        <li>Remise en état rapide</li>
+        <li>Vérification générale</li>
+        <li>Changement du linge de lit</li>
+      </ul>
+      <span class="service-badge">⭐ Pour garder d'excellents avis</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-blue">🏗️</div>
+      <h3>Nettoyage après travaux</h3>
+      <ul>
+        <li>Enlèvement de poussière et déchets</li>
+        <li>Nettoyage en profondeur</li>
+        <li>Vitres, sols, surfaces</li>
+        <li>Résultat prêt à l'utilisation</li>
+      </ul>
+      <span class="service-badge">🔧 Chantier livré clé en main</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-green">🪟</div>
+      <h3>Nettoyage de vitres</h3>
+      <ul>
+        <li>Vitres intérieures et extérieures</li>
+        <li>Vitrines de magasins</li>
+        <li>Baies vitrées</li>
+        <li>Résultat sans traces</li>
+      </ul>
+      <span class="service-badge">✨ Clarté parfaite garantie</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-blue">🏬</div>
+      <h3>Locaux commerciaux</h3>
+      <ul>
+        <li>Boutiques, magasins, espaces de vente</li>
+        <li>Sols, vitrines, comptoirs</li>
+        <li>Zones clients et réserves</li>
+        <li>Image propre et professionnelle</li>
+      </ul>
+      <span class="service-badge">🛍️ Image soignée pour vos clients</span>
+    </div>
+    <div class="service-card reveal" style="background: linear-gradient(135deg, var(--blue), #1a6fa8); color:white; border-color:transparent;">
+      <div class="service-icon" style="background:rgba(255,255,255,.15); font-size:1.7rem;">📞</div>
+      <h3 style="color:white;">Besoin d'un service sur mesure ?</h3>
+      <p style="color:rgba(255,255,255,.85); font-size:.9rem; line-height:1.7; margin-bottom:20px;">
+        Chaque situation est unique. Contactez-nous pour un devis personnalisé gratuit sous 24 heures.
+      </p>
+      <a href="#contact" class="btn-primary" style="background:white; color:var(--blue); box-shadow:none; font-size:.9rem; padding:12px 22px; display:inline-block;">
+        Demander un devis →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ─── -->
+<section id="pourquoi">
+  <div class="why-grid">
+    <div class="why-text reveal">
+      <span class="section-tag">Pourquoi Comme9</span>
+      <h2 class="section-title">La propreté,<br/>notre engagement.</h2>
+      <p class="section-sub">Nous ne faisons pas que nettoyer — nous redonnons éclat et fraîcheur à vos espaces avec professionnalisme et soin.</p>
+      <div class="why-items">
+        <div class="why-item">
+          <div class="why-item-icon">⚡</div>
+          <div>
+            <h4>Intervention rapide</h4>
+            <p>Devis en moins de 24h et intervention flexible selon vos horaires.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon">🌿</div>
+          <div>
+            <h4>Produits écologiques</h4>
+            <p>Nous utilisons des produits respectueux de l'environnement et des personnes.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon">🔐</div>
+          <div>
+            <h4>Fiabilité & Confiance</h4>
+            <p>Équipe sérieuse, ponctuelle et discrète. Votre espace entre de bonnes mains.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon">💯</div>
+          <div>
+            <h4>Satisfaction garantie</h4>
+            <p>Pas satisfait ? Nous revenons sans frais supplémentaires.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual reveal">
+      <div class="why-num-card">
+        <div class="why-num">200+</div>
+        <div class="why-num-label">Clients satisfaits</div>
+      </div>
+      <div class="why-num-card accent tall">
+        <div class="why-num">5⭐</div>
+        <div class="why-num-label">Note moyenne Google</div>
+      </div>
+      <div class="why-num-card accent" style="background: linear-gradient(135deg, var(--green), #159974);">
+        <div class="why-num" style="color:white; -webkit-text-fill-color:white;">24h</div>
+        <div class="why-num-label" style="color:rgba(255,255,255,.8);">Délai devis gratuit</div>
+      </div>
+      <div class="why-num-card">
+        <div class="why-num">3+</div>
+        <div class="why-num-label">Années d'expérience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="temoignages">
+  <div class="centered reveal">
+    <span class="section-tag">Avis Clients</span>
+    <h2 class="section-title">Ce que disent nos clients</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.6);">Des professionnels et particuliers qui nous font confiance chaque semaine.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Service impeccable ! Mon appartement Airbnb est toujours nickel entre chaque réservation. L'équipe est ponctuelle, efficace et très soigneuse. Je recommande vivement !"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SB</div>
+        <div>
+          <div class="testi-name">Sophie B.</div>
+          <div class="testi-role">Hôte Airbnb — Tours</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Nous faisons appel à Comme9 chaque semaine pour nos bureaux. Résultat toujours parfait, équipe sérieuse et fiable. Notre espace de travail n'a jamais été aussi propre !"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">TM</div>
+        <div>
+          <div class="testi-name">Thomas M.</div>
+          <div class="testi-role">Directeur — PME Tours</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Après nos travaux de rénovation, l'appartement était méconnaissable ! Nettoyage ultra-complet, poussière envolée, vitres brillantes. Un vrai coup de maître. Merci Comme9 !"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MC</div>
+        <div>
+          <div class="testi-name">Marie C.</div>
+          <div class="testi-role">Particulière — Tours Nord</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Nos vitrines de boutique n'ont jamais été aussi propres. Résultat sans aucune trace, clientèle qui le remarque. Réactifs et professionnels. On continue avec eux !"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">LC</div>
+        <div>
+          <div class="testi-name">Laurent C.</div>
+          <div class="testi-role">Gérant — Boutique Centre-ville</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Très rapides à répondre, prix honnêtes et travail soigné. J'ai testé plusieurs sociétés avant, Comme9 est de loin la meilleure. Je leur confie mon bien les yeux fermés."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AR</div>
+        <div>
+          <div class="testi-name">Amélie R.</div>
+          <div class="testi-role">Propriétaire — Airbnb Amboise</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="border-color:rgba(39,196,157,.3); background:rgba(39,196,157,.06);">
+      <div style="font-size:2.5rem; margin-bottom:14px;">✨</div>
+      <p class="testi-text" style="color:rgba(255,255,255,.9); font-style:normal; font-size:1rem; font-weight:600;">
+        Rejoignez nos clients satisfaits et bénéficiez d'un devis gratuit sous 24 heures.
+      </p>
+      <a href="#contact" class="btn-primary" style="margin-top:16px; display:inline-block; font-size:.9rem; padding:12px 24px;">
+        Demander mon devis →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <span class="section-tag">Contact</span>
+      <h2 class="section-title">Demandez votre devis gratuit</h2>
+      <p class="section-sub">Remplissez le formulaire et nous vous répondons sous 24 heures avec une proposition adaptée à vos besoins.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <h5>Localisation</h5>
+            <p>Tours, Indre-et-Loire (37), France</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <h5>Téléphone</h5>
+            <p>+33 X XX XX XX XX</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div>
+            <h5>Email</h5>
+            <p>contact@comme9.fr</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <h5>Horaires</h5>
+            <p>Lun–Sam : 7h00 – 20h00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-box reveal">
+      <h3 class="form-title">✉️ Envoyer un message</h3>
+      <p class="form-sub">Devis gratuit – Réponse sous 24h garantie</p>
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nom complet *</label>
+            <input type="text" id="name" name="name" placeholder="Jean Dupont" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Téléphone *</label>
+            <input type="tel" id="phone" name="phone" placeholder="+33 6 XX XX XX XX" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="jean@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="service">Type de service</label>
+          <input type="text" id="service" name="service" placeholder="Ex: Nettoyage bureaux, Airbnb, après travaux..." />
+        </div>
+        <div class="form-group">
+          <label for="message">Votre message *</label>
+          <textarea id="message" name="message" placeholder="Décrivez votre besoin : surface, fréquence, adresse..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">
+          Envoyer ma demande de devis →
+        </button>
+        <div id="formMsg" class="form-msg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <a href="#accueil" class="logo">
+          <div class="logo-icon">🧹</div>
+          <span class="logo-text">Comme9</span>
+        </a>
+      </div>
+      <p class="footer-desc">
+        Comme9 est votre partenaire de nettoyage professionnel à Tours. Entreprises, Airbnb, particuliers — nous garantissons un résultat impeccable à chaque intervention.
+      </p>
+      <p style="font-size:.8rem; color:rgba(255,255,255,.4);">📍 Tours, Indre-et-Loire, France</p>
+    </div>
+    <div>
+      <h4 class="footer-heading">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#services">Nos services</a></li>
+        <li><a href="#pourquoi">Pourquoi nous</a></li>
+        <li><a href="#temoignages">Avis clients</a></li>
+        <li><a href="#contact">Devis gratuit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-heading">Nos services</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Nettoyage de bureaux</a></li>
+        <li><a href="#services">Locations Airbnb</a></li>
+        <li><a href="#services">Après travaux</a></li>
+        <li><a href="#services">Nettoyage de vitres</a></li>
+        <li><a href="#services">Locaux commerciaux</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Comme9 — Tous droits réservés.</p>
+    <p>Réalisé par <a href="https://snetprodz.com" target="_blank">SnetProDz.com</a></p>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // ─── EmailJS Init ───
+  // ⚠️ Remplacez ces valeurs par vos identifiants EmailJS :
+  // 1) Créez un compte sur emailjs.com
+  // 2) Ajoutez un service (Gmail, Outlook...)
+  // 3) Créez un template d'email
+  // 4) Copiez vos IDs ci-dessous
+  const EMAILJS_PUBLIC_KEY  = "NNr7kYRbwQjkIkM3q";   // ex: "user_xxxxxxxxxxxxxxxx"
+  const EMAILJS_SERVICE_ID  = "service_2xm5zua";   // ex: "service_xxxxxxx"
+  const EMAILJS_TEMPLATE_ID = "template_lgm67bu";  // ex: "template_xxxxxxx"
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // ─── NAVBAR scroll ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+  });
+
+  // ─── Hamburger ───
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // ─── Scroll Reveal ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── Contact Form ───
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name    = document.getElementById('name').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !phone || !message) {
+      showMsg('error', '⚠️ Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+    if (!email.includes('@')) {
+      showMsg('error', '⚠️ Adresse email invalide.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+    formMsg.className = 'form-msg';
+    formMsg.style.display = 'none';
+
+    // Si EmailJS n'est pas configuré, simuler l'envoi
+    if (EMAILJS_PUBLIC_KEY === "VOTRE_PUBLIC_KEY") {
+      await new Promise(r => setTimeout(r, 1200));
+      showMsg('success', '✅ Message envoyé ! Nous vous répondons sous 24 heures. Merci, ' + name + ' !');
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Envoyer ma demande de devis →';
+      return;
+    }
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name,
+        from_email: email,
+        phone: phone,
+        service: service || 'Non précisé',
+        message: message,
+        to_name: 'Comme9',
+      });
+      showMsg('success', '✅ Message envoyé ! Nous vous répondons sous 24 heures. Merci, ' + name + ' !');
+      form.reset();
+    } catch (err) {
+      showMsg('error', '❌ Une erreur est survenue. Veuillez réessayer ou nous contacter directement par téléphone.');
+    }
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Envoyer ma demande de devis →';
+  });
+
+  function showMsg(type, text) {
+    formMsg.className = 'form-msg ' + type;
+    formMsg.textContent = text;
+    formMsg.style.display = 'block';
+    formMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+
+</body>
+</html>
