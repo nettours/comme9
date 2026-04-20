@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nettours.github.io/comme9/sitemap.xml
+Sitemap: https://www.comme9pro.fr/sitemap.xml
