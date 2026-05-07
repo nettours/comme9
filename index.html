@@ -307,7 +307,7 @@ footer{background:#0B1628;color:rgba(255,255,255,.65);padding:56px 7% 28px}
 <!-- NAV -->
 <nav id="navbar">
   <a href="#accueil" class="logo">
-    <img src="https://raw.githubusercontent.com/nettours/comme9/refs/heads/main/comme9.jpg" id="navLogo" alt="Comme9 Nettoyage Professionnel Tours"/>
+    <img src="https://i.imgur.com/placeholder.png" id="navLogo" alt="Comme9 Nettoyage Professionnel Tours"/>
     <span class="logo-text">Comme9</span>
   </a>
   <ul class="nav-links">
@@ -564,7 +564,7 @@ footer{background:#0B1628;color:rgba(255,255,255,.65);padding:56px 7% 28px}
   </div>
   <div class="footer-bot">
     <p>© 2025 Comme9 — Nettoyage professionnel à Tours. Tous droits réservés.</p>
-    <p>Réalisé par <a href="https://snetprodz.com" target="_blank">SnetProDz.com</a></p>
+    <p>Réalisé par <a href="https://snetpeodz.com" target="_blank">SnetProDz.com</a></p>
     <button class="admin-trigger" onclick="handleAdminClick()" title="Admin">⚙</button>
   </div>
 </footer>
@@ -608,8 +608,23 @@ footer{background:#0B1628;color:rgba(255,255,255,.65);padding:56px 7% 28px}
 
 <script>
 // ============================================================
-// DATA — Avis par défaut
+// ⚙️ CONFIG JSONBIN.IO — STOCKAGE CLOUD DES AVIS
 // ============================================================
+// ÉTAPES D'INSTALLATION (1 seule fois) :
+// 1. Allez sur https://jsonbin.io et créez un compte GRATUIT
+// 2. Cliquez "Create Bin" → collez exactement : {"reviews":[]}
+// 3. Copiez le BIN ID (ex: 6848a1f2ad19ca34f8a1b2c3)
+// 4. Allez dans "API Keys" → créez une Master Key
+// 5. Remplacez les deux valeurs ci-dessous
+// ============================================================
+const JSONBIN_ID  = '69fcf070c0954111d8effb1f';    // ← remplacer ici
+const JSONBIN_KEY = '$2a$10$q8tKwOEicJHwrQtopxKRmu0Z1Z.cepLSZllWQL521PLKnHf8ZR9va'; // ← remplacer ici
+// ============================================================
+
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+const JSONBIN_HDR = {'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY};
+const CONFIGURED  = JSONBIN_ID !== 'VOTRE_BIN_ID';
+
 const DEFAULT_REVIEWS=[
   {id:'r1',name:'Sophie B.',role:'Hôte Airbnb — Tours',service:'Location Airbnb',rating:5,text:'Service impeccable ! Mon appartement Airbnb est toujours nickel. L\'équipe est ponctuelle, efficace et très soigneuse. Je recommande vivement !',date:'2025-03-14',status:'approved'},
   {id:'r2',name:'Thomas M.',role:'Directeur — PME Tours',service:'Nettoyage de bureaux',rating:5,text:'Nous faisons appel à Comme9 chaque semaine pour nos bureaux. Résultat toujours parfait, équipe sérieuse et fiable !',date:'2025-03-08',status:'approved'},
@@ -618,33 +633,72 @@ const DEFAULT_REVIEWS=[
   {id:'r5',name:'Amélie R.',role:'Propriétaire — Airbnb Amboise',service:'Location Airbnb',rating:5,text:'Prix honnêtes et travail soigné. J\'ai testé plusieurs sociétés, Comme9 est de loin la meilleure. Je leur confie mon bien les yeux fermés.',date:'2025-01-30',status:'approved'}
 ];
 const ADMIN_PWD='comme9admin2025';
-const STORAGE_KEY='comme9_reviews_v2';
+const LS_KEY='comme9_reviews_local';
 
-// STORAGE
-function getReviews(){
+// ============================================================
+// STOCKAGE CLOUD — lecture/écriture JSONBin
+// ============================================================
+async function getReviews(){
+  if(!CONFIGURED){
+    // Mode local si JSONBin non configuré
+    try{const s=localStorage.getItem(LS_KEY);if(s){const p=JSON.parse(s);const ids=p.map(r=>r.id);const m=[...p];DEFAULT_REVIEWS.forEach(d=>{if(!ids.includes(d.id))m.push(d);});return m;}}catch(e){}
+    return[...DEFAULT_REVIEWS];
+  }
   try{
-    const stored=localStorage.getItem(STORAGE_KEY);
-    if(stored){
-      const parsed=JSON.parse(stored);
-      const ids=parsed.map(r=>r.id);
-      const merged=[...parsed];
-      DEFAULT_REVIEWS.forEach(d=>{if(!ids.includes(d.id))merged.push(d);});
-      return merged;
+    const res=await fetch(JSONBIN_URL+'/latest',{headers:JSONBIN_HDR});
+    if(!res.ok)throw new Error(res.status);
+    const data=await res.json();
+    const cloud=data.record?.reviews||[];
+    if(cloud.length===0){
+      // Premier démarrage : initialiser avec les avis par défaut
+      await saveReviews([...DEFAULT_REVIEWS]);
+      return[...DEFAULT_REVIEWS];
     }
-  }catch(e){}
-  return[...DEFAULT_REVIEWS];
+    return cloud;
+  }catch(e){
+    console.warn('JSONBin inaccessible, mode local:',e);
+    try{const s=localStorage.getItem(LS_KEY);if(s)return JSON.parse(s);}catch(e2){}
+    return[...DEFAULT_REVIEWS];
+  }
 }
-function saveReviews(reviews){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(reviews));}catch(e){}}
-function addReview(review){const r=getReviews();r.unshift(review);saveReviews(r);}
-function updateReview(id,status){const r=getReviews();const x=r.find(v=>v.id===id);if(x){x.status=status;saveReviews(r);}}
-function deleteReviewById(id){saveReviews(getReviews().filter(x=>x.id!==id));}
 
-// RENDER TESTIMONIALS
+async function saveReviews(reviews){
+  if(!CONFIGURED){
+    try{localStorage.setItem(LS_KEY,JSON.stringify(reviews));}catch(e){}
+    return;
+  }
+  try{
+    await fetch(JSONBIN_URL,{method:'PUT',headers:JSONBIN_HDR,body:JSON.stringify({reviews})});
+    // Cache local de secours
+    try{localStorage.setItem(LS_KEY,JSON.stringify(reviews));}catch(e){}
+  }catch(e){console.error('Erreur sauvegarde:',e);}
+}
+
+async function addReview(review){
+  const reviews=await getReviews();
+  reviews.unshift(review);
+  await saveReviews(reviews);
+}
+async function updateReview(id,status){
+  const reviews=await getReviews();
+  const r=reviews.find(x=>x.id===id);
+  if(r){r.status=status;await saveReviews(reviews);}
+}
+async function deleteReviewById(id){
+  await saveReviews((await getReviews()).filter(x=>x.id!==id));
+}
+
+// ============================================================
+// AFFICHAGE AVIS PUBLICS
+// ============================================================
 const starStr=n=>'★'.repeat(n)+'☆'.repeat(5-n);
-function renderTestimonials(){
+
+async function renderTestimonials(){
   const grid=document.getElementById('testiGrid');
   if(!grid)return;
-  const approved=getReviews().filter(r=>r.status==='approved');
+  grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;color:rgba(255,255,255,.4);padding:40px"><div style="font-size:2rem;margin-bottom:8px">⏳</div>Chargement des avis...</div>`;
+  const reviews=await getReviews();
+  const approved=reviews.filter(r=>r.status==='approved');
   let html=approved.map(r=>{
     const ini=r.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
     return`<div class="testi-card reveal">
@@ -666,7 +720,9 @@ function renderTestimonials(){
   grid.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 }
 
-// STAR RATING
+// ============================================================
+// FORMULAIRE AVIS CLIENT
+// ============================================================
 const starLabels=['','Très mauvais','Mauvais','Correct','Bien','Excellent !'];
 document.querySelectorAll('.star-selector input').forEach(inp=>{
   inp.addEventListener('change',function(){
@@ -674,8 +730,7 @@ document.querySelectorAll('.star-selector input').forEach(inp=>{
   });
 });
 
-// REVIEW FORM SUBMIT
-document.getElementById('reviewForm').addEventListener('submit',function(e){
+document.getElementById('reviewForm').addEventListener('submit',async function(e){
   e.preventDefault();
   const rating=document.querySelector('.star-selector input:checked');
   const name=document.getElementById('rName').value.trim();
@@ -689,19 +744,26 @@ document.getElementById('reviewForm').addEventListener('submit',function(e){
   if(!name){res.className='fmsg err';res.textContent='⚠️ Votre nom est requis.';res.style.display='block';return;}
   if(!service){res.className='fmsg err';res.textContent='⚠️ Veuillez choisir le service.';res.style.display='block';return;}
   if(!msg||msg.length<20){res.className='fmsg err';res.textContent='⚠️ Votre avis doit comporter au moins 20 caractères.';res.style.display='block';return;}
-  btn.disabled=true;btn.textContent='Envoi en cours...';
-  addReview({id:'r_'+Date.now(),name,role:role||service,service,rating:parseInt(rating.value),text:msg,date:new Date().toISOString().split('T')[0],status:'pending'});
-  res.className='fmsg ok';
-  res.textContent='✅ Merci '+name+' ! Votre avis a été soumis et sera publié après validation.';
-  res.style.display='block';
-  this.reset();
-  document.getElementById('starDisplay').textContent='Cliquez pour noter';
+  btn.disabled=true;btn.textContent='⏳ Envoi en cours...';
+  try{
+    await addReview({id:'r_'+Date.now(),name,role:role||service,service,rating:parseInt(rating.value),text:msg,date:new Date().toISOString().split('T')[0],status:'pending'});
+    res.className='fmsg ok';
+    res.textContent='✅ Merci '+name+' ! Votre avis a été enregistré'+(CONFIGURED?' sur le cloud':' localement')+' et sera publié après validation.';
+    res.style.display='block';
+    this.reset();
+    document.getElementById('starDisplay').textContent='Cliquez pour noter';
+    showToast('✅ Avis envoyé avec succès !','ok');
+  }catch(err){
+    res.className='fmsg err';res.textContent='❌ Erreur réseau. Réessayez.';res.style.display='block';
+  }
   btn.disabled=false;btn.textContent='Envoyer mon avis →';
-  renderAdminStats();
 });
 
-// ADMIN
+// ============================================================
+// ADMIN PANEL
+// ============================================================
 let adminLoggedIn=false,currentFilter='all';
+
 function handleAdminClick(){
   document.getElementById('adminOverlay').classList.add('open');
   adminLoggedIn?showDash():showLogin();
@@ -715,7 +777,8 @@ function showLogin(){
 function showDash(){
   document.getElementById('adminLogin').style.display='none';
   document.getElementById('adminDash').style.display='block';
-  renderAdminStats();renderAdminReviews('all');
+  renderAdminStats();
+  renderAdminReviews('all');
 }
 function doLogin(){
   if(document.getElementById('adminPwd').value===ADMIN_PWD){adminLoggedIn=true;showDash();}
@@ -723,27 +786,32 @@ function doLogin(){
 }
 function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');}
 
-function renderAdminStats(){
-  const all=getReviews();
+async function renderAdminStats(){
+  document.getElementById('adminStats').innerHTML=`<div style="grid-column:1/-1;color:rgba(255,255,255,.4);padding:12px">⏳ Chargement...</div>`;
+  const all=await getReviews();
   const pending=all.filter(r=>r.status==='pending').length;
   const approved=all.filter(r=>r.status==='approved').length;
   const avgArr=all.filter(r=>r.status==='approved');
   const avg=avgArr.length?(avgArr.reduce((s,r)=>s+r.rating,0)/avgArr.length).toFixed(1):'-';
+  const mode=CONFIGURED?'☁️ Cloud JSONBin':'💾 Local (configurez JSONBin)';
   document.getElementById('adminStats').innerHTML=`
     <div class="stat-card blue"><div class="sc-val">${all.length}</div><div class="sc-lbl">Total avis reçus</div></div>
-    <div class="stat-card yellow"><div class="sc-val">${pending}</div><div class="sc-lbl">En attente de validation</div></div>
-    <div class="stat-card green"><div class="sc-val">${approved}</div><div class="sc-lbl">Avis publiés sur le site</div></div>
-    <div class="stat-card red"><div class="sc-val">${avg}⭐</div><div class="sc-lbl">Note moyenne publiée</div></div>`;
+    <div class="stat-card yellow"><div class="sc-val">${pending}</div><div class="sc-lbl">En attente validation</div></div>
+    <div class="stat-card green"><div class="sc-val">${approved}</div><div class="sc-lbl">Publiés sur le site</div></div>
+    <div class="stat-card red"><div class="sc-val">${avg}⭐</div><div class="sc-lbl">Note moyenne | ${mode}</div></div>`;
 }
+
 function filterReviews(filter,btn){
   currentFilter=filter;
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   renderAdminReviews(filter);
 }
-function renderAdminReviews(filter){
+
+async function renderAdminReviews(filter){
   const list=document.getElementById('adminReviewsList');
-  let reviews=getReviews();
+  list.innerHTML=`<div style="text-align:center;color:rgba(255,255,255,.4);padding:32px">⏳ Chargement des avis...</div>`;
+  let reviews=await getReviews();
   if(filter!=='all')reviews=reviews.filter(r=>r.status===filter);
   if(reviews.length===0){list.innerHTML=`<div class="admin-empty"><div class="ae-ico">📭</div><p>Aucun avis dans cette catégorie.</p></div>`;return;}
   const statusLabel={pending:'⏳ En attente',approved:'✅ Publié',rejected:'🚫 Rejeté'};
@@ -754,7 +822,7 @@ function renderAdminReviews(filter){
     else if(r.status==='approved')actions=`<button class="arc-btn reject" onclick="adminAction('reject','${r.id}')">🚫 Dépublier</button>`;
     else actions=`<button class="arc-btn approve" onclick="adminAction('approve','${r.id}')">✅ Republier</button>`;
     actions+=`<button class="arc-btn delete" onclick="adminAction('delete','${r.id}')">🗑 Supprimer</button>`;
-    return`<div class="admin-review-card ${r.status}">
+    return`<div class="admin-review-card ${r.status}" id="card_${r.id}">
       <div>
         <div class="arc-meta"><div class="testi-av arc-av">${ini}</div><div><div class="arc-name">${r.name}</div><div class="arc-role">${r.role} · ${r.service}</div><div class="arc-date">${r.date}</div></div></div>
         <div class="arc-stars">${starStr(r.rating)} (${r.rating}/5)</div>
@@ -765,21 +833,28 @@ function renderAdminReviews(filter){
     </div>`;
   }).join('');
 }
-function adminAction(action,id){
-  if(action==='approve'){updateReview(id,'approved');showToast('✅ Avis publié sur le site !','ok');}
-  else if(action==='reject'){updateReview(id,'rejected');showToast('🚫 Avis dépublié','ok');}
-  else if(action==='delete'){if(!confirm('Supprimer définitivement cet avis ?'))return;deleteReviewById(id);showToast('🗑 Avis supprimé','ok');}
-  renderAdminStats();renderAdminReviews(currentFilter);renderTestimonials();
+
+async function adminAction(action,id){
+  showToast('⏳ Traitement...','ok');
+  if(action==='approve'){await updateReview(id,'approved');showToast('✅ Avis publié sur le site !','ok');}
+  else if(action==='reject'){await updateReview(id,'rejected');showToast('🚫 Avis dépublié','ok');}
+  else if(action==='delete'){
+    if(!confirm('Supprimer définitivement cet avis ?'))return;
+    await deleteReviewById(id);showToast('🗑 Avis supprimé','ok');
+  }
+  await renderAdminStats();
+  await renderAdminReviews(currentFilter);
+  await renderTestimonials();
 }
 
-// TOAST
+// ============================================================
+// UTILITAIRES
+// ============================================================
 function showToast(msg,type){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className='toast '+type+' show';
   setTimeout(()=>t.className='toast',2800);
 }
-
-// FAQ
 function toggleFaq(el){
   const item=el.parentElement;
   const isOpen=item.classList.contains('open');
@@ -787,10 +862,12 @@ function toggleFaq(el){
   if(!isOpen)item.classList.add('open');
 }
 
-// SCROLL & HAMBURGER
 window.addEventListener('load',()=>{
   document.getElementById('heroBg').classList.add('loaded');
   renderTestimonials();
+  if(!CONFIGURED){
+    console.warn('⚠️ JSONBin non configuré — les avis sont locaux. Suivez les instructions dans le code.');
+  }
 });
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').style.boxShadow=window.scrollY>30?'0 2px 20px rgba(0,0,0,.1)':'none';
@@ -799,7 +876,6 @@ window.addEventListener('scroll',()=>{
 document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobMenu').classList.toggle('open'));
 function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
 
-// SCROLL REVEAL
 const obs=new IntersectionObserver((entries)=>{
   entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);obs.unobserve(e.target);}});
 },{threshold:0.1});
