@@ -1,0 +1,212 @@
+<!--
+═══════════════════════════════════════════════════════════
+  SCHEMA.ORG — À COLLER DANS index.html
+  
+  📍 OÙ ?  Juste AVANT la balise fermante </head>
+  
+  ⚠️ Ce bloc dit à Google : "Comme9 est une entreprise de
+     nettoyage locale, située à Tours, avec ces horaires,
+     ce téléphone, ces services." C'est ce qui permet
+     d'apparaître dans les résultats enrichis et d'aider
+     Google à vous rattacher à la recherche locale.
+═══════════════════════════════════════════════════════════
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.comme9pro.fr/#business",
+      "name": "Comme9",
+      "alternateName": "Comme9 Nettoyage Tours",
+      "description": "Entreprise de nettoyage professionnel à Tours (Indre-et-Loire). Nettoyage de bureaux, locations Airbnb, après travaux, vitres et locaux commerciaux pour entreprises et particuliers.",
+      "url": "https://www.comme9pro.fr/",
+      "logo": "https://raw.githubusercontent.com/nettours/comme9/refs/heads/main/comme9.jpg",
+      "image": "https://raw.githubusercontent.com/nettours/comme9/refs/heads/main/comme9.jpg",
+      "telephone": "+33621689146",
+      "email": "comme9.proprete@gmail.com",
+      "priceRange": "€€",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Espèces, Virement bancaire, Chèque",
+
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2 Place Goya",
+        "addressLocality": "Tours",
+        "postalCode": "37200",
+        "addressRegion": "Centre-Val de Loire",
+        "addressCountry": "FR"
+      },
+
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.3900,
+        "longitude": 0.6893
+      },
+
+      "hasMap": "https://maps.google.com/maps?q=2+Place+Goya+37200+Tours+France",
+
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"
+          ],
+          "opens": "07:00",
+          "closes": "20:00"
+        }
+      ],
+
+      "areaServed": [
+        { "@type": "City", "name": "Tours" },
+        { "@type": "City", "name": "Saint-Cyr-sur-Loire" },
+        { "@type": "City", "name": "Joué-lès-Tours" },
+        { "@type": "City", "name": "Saint-Avertin" },
+        { "@type": "City", "name": "Chambray-lès-Tours" },
+        { "@type": "City", "name": "La Riche" },
+        { "@type": "City", "name": "Saint-Pierre-des-Corps" },
+        { "@type": "AdministrativeArea", "name": "Indre-et-Loire" }
+      ],
+
+      "knowsLanguage": ["fr-FR"],
+
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Prestations de nettoyage",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Nettoyage de bureaux",
+              "description": "Entretien régulier de bureaux et locaux professionnels à Tours : sols, sanitaires, vitrerie intérieure, espaces de pause.",
+              "url": "https://www.comme9pro.fr/nettoyage-bureaux-tours.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Nettoyage de location courte durée (Airbnb)",
+              "description": "Remise en état complète entre deux séjours : ménage, changement du linge, vérification générale.",
+              "url": "https://www.comme9pro.fr/nettoyage-airbnb-tours.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Nettoyage après travaux",
+              "description": "Nettoyage de fin de chantier : élimination des poussières, résidus de plâtre, traces de peinture, vitres et sols.",
+              "url": "https://www.comme9pro.fr/nettoyage-apres-travaux-tours.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Nettoyage de vitres",
+              "description": "Vitres intérieures et extérieures, vitrines de magasin, baies vitrées — résultat sans traces.",
+              "url": "https://www.comme9pro.fr/nettoyage-vitres-tours.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Nettoyage de locaux commerciaux",
+              "description": "Entretien de boutiques, magasins et espaces de vente : surface de vente, vitrines, sanitaires, réserves.",
+              "url": "https://www.comme9pro.fr/nettoyage-locaux-commerciaux-tours.html"
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://www.comme9pro.fr/#website",
+      "url": "https://www.comme9pro.fr/",
+      "name": "Comme9 — Nettoyage Professionnel Tours",
+      "inLanguage": "fr-FR",
+      "publisher": { "@id": "https://www.comme9pro.fr/#business" }
+    },
+
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.comme9pro.fr/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quel est le délai pour recevoir un devis ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nous vous répondons sous 24 heures ouvrées avec un devis personnalisé et entièrement gratuit, du lundi au samedi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Intervenez-vous le week-end ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, nous intervenons du lundi au samedi de 7h à 20h afin de nous adapter à vos contraintes personnelles et professionnelles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Utilisez-vous des produits écologiques ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Comme9 utilise des produits professionnels écologiques, certifiés et sans danger pour les occupants des lieux."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Proposez-vous une garantie satisfaction ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Si le résultat ne vous convient pas, notre équipe revient sans frais supplémentaires pour corriger ce qui doit l'être."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Intervenez-vous pour les particuliers ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, nous travaillons pour les particuliers, les hôtes Airbnb, les entreprises et les gestionnaires de biens à Tours et en Indre-et-Loire."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment prendre contact avec Comme9 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Par téléphone au 0621689146 ou 0745649252, par email à comme9.proprete@gmail.com, ou via le formulaire de devis présent sur le site."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+
+<!--
+═══════════════════════════════════════════════════════════
+  ⚠️ NOTE IMPORTANTE SUR LES AVIS
+
+  Je n'ai PAS inclus de bloc "aggregateRating" (note 5⭐).
+
+  Raison : depuis 2019, Google refuse le balisage d'avis
+  auto-déclarés sur sa propre entreprise ("self-serving
+  reviews"). Le mettre ne produit aucun résultat et peut
+  déclencher une action manuelle dans Search Console.
+
+  Les étoiles que vous voyez sur Google viennent de votre
+  fiche Google Business Profile, pas du code du site.
+  → C'est là qu'il faut collecter les avis.
+═══════════════════════════════════════════════════════════
+-->
