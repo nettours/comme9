@@ -4,11 +4,9 @@
 User-agent: *
 Allow: /
 
-# Ressources à ne pas indexer
 Disallow: /admin
 Disallow: /*.json$
 
-# Crawlers IA — autorisés (visibilité dans ChatGPT, Perplexity, etc.)
 User-agent: GPTBot
 Allow: /
 
