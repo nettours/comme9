@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    Comme9 — Feuille de style partagée
-   Pages services SEO
+   Pages services + blog
    ═══════════════════════════════════════════ */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -69,24 +69,20 @@ article li{font-size:.95rem;color:#334155;line-height:1.8;margin-bottom:8px}
 article strong{color:var(--dark);font-weight:700}
 article a{color:var(--blue);font-weight:600}
 
-/* Highlight box */
 .callout{background:var(--blue-pale);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:20px 22px;margin:26px 0}
 .callout p{margin-bottom:0;font-size:.93rem}
 .callout.green{background:var(--green-pale);border-left-color:var(--green)}
 
-/* Feature grid */
 .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:26px 0}
 .feat{background:var(--light);border:1px solid var(--border);border-radius:14px;padding:22px 20px}
 .feat-ico{font-size:1.7rem;margin-bottom:10px}
 .feat h4{font-size:.96rem;font-weight:700;color:var(--dark);margin-bottom:6px}
 .feat p{font-size:.86rem;color:var(--mid);line-height:1.7;margin-bottom:0}
 
-/* Checklist */
 .checklist{list-style:none;padding:0}
 .checklist li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;font-size:.95rem;color:#334155}
 .checklist li::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0;font-size:.95rem}
 
-/* Price table */
 .price-table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.92rem}
 .price-table th{background:var(--blue-pale);color:var(--dark);padding:12px 14px;text-align:left;font-weight:700;font-size:.85rem;border-bottom:2px solid var(--blue)}
 .price-table td{padding:12px 14px;border-bottom:1px solid var(--border);color:#334155}
@@ -114,7 +110,7 @@ article a{color:var(--blue);font-weight:600}
 .faq-q::after{content:'+';font-size:1.3rem;color:var(--blue);flex-shrink:0;transition:transform .25s}
 .faq-item.open .faq-q::after{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 22px}
-.faq-item.open .faq-a{max-height:400px;padding:0 22px 18px}
+.faq-item.open .faq-a{max-height:500px;padding:0 22px 18px}
 .faq-a p{font-size:.92rem;color:var(--mid);line-height:1.8;margin:0}
 
 /* ─── CTA BANNER ─── */
